@@ -1,7 +1,11 @@
+
+<h2 class="alert alert-warning text-center">Employee Form</h2>
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-8 offset-md-2">
-      <form [formGroup]="Signupform" (ngSubmit)="OnSignUp()">
+      <div class="card">
+        <div class="card-body">
+            <form [formGroup]="Signupform" (ngSubmit)="OnSignUp()">
         <mat-form-field appearance="fill" class="w-100 mb-3">
           <mat-label>Please Enter Your Name</mat-label>
           <input matInput formControlName="UserName">
@@ -29,8 +33,9 @@
 
         </mat-form-field>
         <br>
+
         <mat-form-field appearance="fill" class="w-100 mb-3">
-          <mat-label class="text-center">Please Enter Your Email</mat-label>
+          <mat-label>Please Enter Your Email</mat-label>
           <input matInput formControlName="email">
 
           <strong class="text-danger"
@@ -42,8 +47,101 @@
             )</strong>
         </mat-form-field>
         <br>
-        <button class="btn-block btn-lg" mat-raised-button color="primary">Submit</button>
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Employee Id</mat-label>
+          <input matInput formControlName="emp_id">
+
+                <strong class="text-danger" *ngIf="formControls['emp_id'].touched && formControls['emp_id'].hasError('required')">
+                  Emp_id is maditory field!!!
+                </strong>
+
+                 <strong class="text-danger" *ngIf="formControls['emp_id'].dirty && formControls['emp_id'].hasError('invalid')">
+                  {{formControls['emp_id'].errors?.['invalid']}}
+                </strong>
+        </mat-form-field>
+        <br>
+         
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Adhar Number</mat-label>
+          <input matInput formControlName="AdharNum">
+
+           <strong class="text-danger" *ngIf="formControls['AdharNum'].touched && formControls['AdharNum'].hasError('required')">
+                     Adhar Number is required!!!
+                </strong>
+
+                <strong class="text-danger" *ngIf="formControls['AdharNum'].dirty && formControls['AdharNum'].hasError('pattern')">
+                     Special Characters& letters are not allowed!!!
+                </strong>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label> PanCard </mat-label>
+          <input matInput formControlName="PanCard">
+
+               <strong class="text-danger" *ngIf="formControls['PanCard'].touched && formControls['PanCard'].hasError('required')">
+                    Required Field!!!
+                </strong>
+
+                <strong class="text-danger" *ngIf="formControls['PanCard'].dirty && formControls['PanCard'].hasError('pattern')">
+                   Pls  Enter Valid Pan Number(ABCDE1234F)!!!
+                </strong>
+
+            </mat-form-field>
+
+
+        
+
+          <mat-radio-group aria-label="Select an option" formControlName="gender">
+           <mat-radio-button
+                *ngFor="let gender of genderArr" 
+                class="me-3"
+                   [id]="gender"
+                   [value]="gender">{{gender}}</mat-radio-button>
+          
+          </mat-radio-group>
+
+
+          <h4>Add Skills</h4>
+              <div formArrayName="Skills">
+                <div class="row" *ngFor="let skill of skillsArr.controls; let i=index">
+                  <div class="col-8 d-flex justify-content-between align-items-center">
+
+                  <mat-form-field appearance="fill">
+                     <input matInput  formControlName="{{i}}">
+                  </mat-form-field>
+
+                  <div  *ngIf=" i > 0">
+                     <button 
+                     (click)="OnRemoveskill(i)"
+                     button="button" mat-raised-button color="warn"><mat-icon>delete</mat-icon></button>
+                  </div>
+                  </div>
+                  
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col">
+                    <button
+                    *ngIf="skillsArr.length<5 else skillsLimit"
+                    [disabled]="skillsArr.invalid"
+                    (click)="OnSkillAdd()" type="button"  mat-raised-button color="accent">Add Skill</button>
+
+                    <ng-template #skillsLimit>
+                      <p class="alert alert-warning">You Can Add Only Skills</p>
+                    </ng-template>
+                  </div>
+                </div>
+
+              </div>
+
+        <button [disabled]="Signupform.invalid" class=" btn-lg" mat-raised-button color="primary">Sign up</button>
       </form>
+        </div>
+      </div>
+     
     </div>
   </div>
 </div>

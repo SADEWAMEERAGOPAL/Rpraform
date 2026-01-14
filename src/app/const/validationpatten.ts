@@ -2,7 +2,9 @@ export class CustomRegex {
   static password = `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}$`
   static onlyText = '[a-zA-Z]*'
   static onlyNums = '[0-9]\d{3}*';
-  static username = '^[a-zA-Z ]*$'
+  static username = '^[a-zA-Z ]*$';
+  static pancard= '^[A-Z]{5}[0-9]{4}[A-Z]$';
+  static AdharCard='[0-9]*';
   static email = '^[a-zA-Z0-9._-]+@[a-zA-Z0-9-_.]+\\.[a-zA-Z]{2,100}$'
   static updateEmail =
     '/^(([^<>()[]\\.,;:s@"]+(.[^<>()[]\\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,9}))$/'
